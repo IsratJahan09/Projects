@@ -1,0 +1,98 @@
+{% extends "blog/base.html" %}
+
+{% block title %}<title>Sign In / Register</title>{% endblock %}
+{% block extra_head %}<style>
+    .alert-animation {
+        animation: fadeInSlide 0.7s ease forwards;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    @keyframes fadeInSlide {
+        0% {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+ 
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-5">
+        {% if messages %}
+            <div class="container mt-2">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show alert-animation text-white bg-danger" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+            <div class="card shadow-md">
+       
+                <!-- Card Header -->
+                <div class="card-header bg-success text-white text-center">
+                    <h4>Sign In / Register</h4>
+                </div>
+
+       
+
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- Email -->
+                        <div class="mb-2">
+                            <label for="id_email" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" id="id_email" required>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-2">
+                            <label for="id_username" class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control" id="id_username" required>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-2">
+                            <label for="id_password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="id_password" required>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-2">
+                            <label for="id_confirm_password" class="form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" id="id_confirm_password" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-success w-100">Sign In / Register</button>
+                    </form>
+
+                    <!-- Login / Sign Up toggle -->
+                    <p class="text-center mt-2">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="text-decoration-none">Login</a>
+                    </p>
+
+                    <p class="text-center mt-1">
+                        <a href="#" class="text-decoration-none">Forgot Password?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

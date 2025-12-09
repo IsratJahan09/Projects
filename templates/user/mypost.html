@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+{% block title %}<title>My Posts</title>{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">My All Blogs Here</h2>
+    {% if posts %}
+        {% for post in posts %}
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title">{{ post.title }}</h3>
+          <p class="text-muted">{{ post.author }} • {{ post.created_at | date:" M d, Y" }} 
+            Category: <span class="badge bg-primary">{{ post.category.name }}</span>
+          </p>
+          <p class="card-text">
+        {{ post.content|safe|truncatewords:40 }}
+          </p>
+          <div class="d-flex gap-2">
+            <!-- Read More -->
+            <a href="{% url 'post_detail' post.id %}" class="btn btn-success btn-sm">
+                <i class="bi bi-book"></i> Read More
+            </a>
+
+            <!-- Like -->
+            <button type="button" class="btn btn-primary btn-sm">
+                <i class="bi bi-hand-thumbs-up"></i><span> {{ post.likes }}</span>
+
+            </button>
+            <!-- diLike -->
+            <button type="button" class="btn btn-primary btn-sm">
+                <i class="bi bi-hand-thumbs-down"></i> <span>{{ post.dislikes }}</span>
+            </button>
+
+            <!-- Comment -->
+            <button type="button" class="btn btn-warning btn-sm">
+                <i class="bi bi-chat-dots"></i> {{post.comments.count}}
+            </button>
+            <!-- views -->
+            <button type="button" class="btn btn-warning btn-sm">
+               <span>👁 {{ post.views }}</span>
+            </button>
+        </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+        <p>No Blog Found.</p>
+    {% endif %}
+</div>
+{% endblock %}

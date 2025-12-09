@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+
+{% block title %}<title>{{ post.title }}</title>{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="text-muted">{{ post.author }} • {{ post.created_at|date:"M d, Y" }}
+                Category: <span class="badge bg-primary">{{ post.category.name }}</span>
+            </p>
+            <p class="card-text">{{ post.content|safe }}</p>
+
+            <a href="{% url 'post_list' %}" class="btn btn-secondary mt-2">← Back to Posts</a>
+         <h4 id="comments" class="mt-4">Comments ({{ comments.count }})</h4>
+        
+         <form method="POST" class="mb-3">
+                {% csrf_token %}
+                <textarea name="content" class="form-control" rows="3" placeholder="Add a comment..." required></textarea>
+                <button type="submit" class="btn btn-success mt-2">Comment</button>
+            </form>
+
+            <!-- Display Comments -->
+            {% for comment in comments %}
+            <div class="border p-2 mb-2 rounded">
+                <strong>{{ comment.user.username }}</strong>
+                <span class="text-muted">• {{ comment.created_at|date:"M d, Y H:i" }}</span>
+                <p>{{ comment.content }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

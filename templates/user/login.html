@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+{% block title %}<title>user login</title>{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-3 col-lg-5 mt-2">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="text-danger alert alert-{{ message.tags }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+      <div class="card shadow-md">
+        <div class="card-header bg-success text-white text-center">
+          <h3>Login</h3>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="id_username" class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" id="id_username" required>
+            </div>
+            
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="id_password" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" id="id_password" required>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Login</button>
+          </form>
+
+           <p class="text-center mt-3">
+            Don't have an account? 
+            <a href="{% url 'signup' %}" class="text-decoration-none">Create Account</a>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

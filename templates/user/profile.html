@@ -1,0 +1,121 @@
+{% extends "blog/base.html" %}
+{% block title %}<title>User Profile</title>{% endblock %}
+
+{% block extra_head %}
+<style>
+/* Background Gradient */
+body {
+    /* background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif; */
+}
+
+/* Center Container */
+.profile-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+/* Glass Card */
+.profile-card {
+    width: 380px;
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Profile Image */
+.profile-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 5px solid rgba(255,255,255,0.5);
+    margin-top: -70px;
+}
+
+/* Name + Email */
+.profile-name {
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.profile-email {
+    font-size: 14px;
+    color: #333;
+    opacity: 0.8;
+}
+
+/* Info Box */
+.info-section {
+    margin-top: 25px;
+    background: rgba(255,255,255,0.45);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.info-section p {
+    font-size: 15px;
+    margin: 6px 0;
+}
+
+/* Buttons */
+.btn-custom {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-btn {
+    background: #007bff;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #0064d3;
+}
+
+.logout-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.logout-btn:hover {
+    background: #bb2d3a;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="profile-wrapper">
+    <div class="profile-card">
+
+<img src="https://i.pravatar.cc/150?img=5" class="profile-img" alt="User">
+
+        <p class="profile-email mb-1">{{ user.email }}</p>
+
+        <div class="info-section mt-1">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Phone:</strong> {{ user.phone|default:"Not added" }}</p>
+            <p><strong>Address:</strong> {{ user.address|default:"Not added" }}</p>
+        </div>
+
+        <button class="btn-custom edit-btn" onclick="location.href='{% url 'update_profile' %}'">✏️ Edit Profile</button>
+        <button class="btn-custom logout-btn" onclick="location.href='{% url 'logout' %}'">🚪 Logout</button>
+
+    </div>
+</div>
+
+{% endblock %}
